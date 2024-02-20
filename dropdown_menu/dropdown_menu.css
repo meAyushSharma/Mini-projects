@@ -1,0 +1,226 @@
+/*  *|| CSS RESET */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/*  *|| VARIABLES DEFINED */
+
+:root {
+  --BG-COLOR: #333;
+  --COLOR: #dedede;
+  --FF: "Trebuchet MS";
+}
+
+body {
+  font-family: var(--FF);
+  /* min-height: 100vh; */
+}
+
+/*  ! *|| header CONTAINER */
+
+.header-container {
+  background-color: var(--BG-COLOR);
+  color: var(--COLOR);
+  width: 100vw;
+}
+
+/*  *|| HEADING (p tag) */
+
+/* ? styling heading */
+
+.heading {
+  display: inline-block; /*  ! imp */
+  font-size: 1.7rem;
+  font-weight: 600;
+  padding: 0.67rem 0 0 0;
+  margin-bottom: 6px;
+  position: relative;
+  /* background-image: linear-gradient(to left, #333, #dad3d3, rgb(46, 46, 46));
+  background-size: 0 3px;
+  background-repeat: no-repeat;
+  background-position: bottom left; */
+}
+
+/* ? styling ::after element */
+
+.heading::after {
+  content: "";
+  position: absolute; /*  ! imp to give it position */
+  bottom: 0;
+  left: 0;
+  width: 100%; /*  * this just takes a */
+  height: 3px;
+  background-image: linear-gradient(to left, #333, #dad3d3, rgb(46, 46, 46));
+  transform-origin: bottom right;
+  transform: scale(0);
+  transition: transform 0.25s ease-out;
+}
+
+/* ? what happens when hover on ::after */
+
+.heading:hover::after {
+  transform: scale(1);
+  transform-origin: bottom left;
+}
+
+/*  * || ANCHOR TAGS */
+
+/* ? styling anchor tag (basic) */
+
+:is(.list-items) a {
+  display: inline-block; /*  ! to provide concrete width */
+  text-decoration: none;
+  color: var(--COLOR);
+  font-size: 1.2em;
+  position: relative;
+}
+
+/* ? when hover on link */
+
+a:hover {
+  /*  ! DO NOT INCREASE FONT SIZE AS IT WILL AFFECT CONTAINER SIZE AS WELL.   */
+  transform: scale(1.15); /* * 15% increment. */
+  transition: transform ease-out 200ms;
+}
+
+/* not worth it. */
+/* a:focus {
+  color: hsla(0, 0%, 87%, 0.711); 
+} */
+
+/* ? styling ::after element */
+
+a::after {
+  content: "";
+  position: absolute; /*  * imp to give it position */
+  width: 100%; /*  * this just takes "a" width */
+  transform: scale(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--COLOR);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+
+  /*  TODO: do not use border-bottom property as it will cover ENTIRE element(content-->li) in "::after" psuedo class but obviously not in normal "a" , it will just be a underline. */
+}
+
+/* ? what happens when hover on ::after */
+
+a:hover::after {
+  transform: scale(1);
+  transform-origin: bottom left;
+}
+
+/* basic list styling */
+
+.list-items {
+  padding: 1.3em;
+}
+
+/* *|| BUTTON STYLING */
+
+.heading-with-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.button-container {
+  height: 34px;
+  aspect-ratio: 1/1;
+  background-color: var(--BG-COLOR);
+  position: absolute;
+  right: 8px;
+  bottom: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid var(--COLOR); */
+  border-radius: 5px;
+}
+
+.button {
+  box-sizing: content-box;
+  height: 5px;
+  width: 28px;
+  border: none; /*  ! this removes the default border settings */
+  /* border: 1px solid whitesmoke; */
+  border-radius: 2px;
+  background-color: var(--COLOR);
+  position: relative;
+}
+
+.button::after {
+  display: block;
+  content: "";
+  height: 5px;
+  width: 28px;
+  background-color: var(--COLOR);
+  /* border: 1px solid whitesmoke; */
+  border-radius: 2px;
+  position: absolute;
+  bottom: -10px;
+  right: 0.5px;
+}
+
+.button::before {
+  display: block;
+  content: "";
+  height: 5px;
+  width: 28px;
+  background-color: var(--COLOR);
+  /* border: 1px solid whitesmoke; */
+  border-radius: 2px;
+  position: absolute;
+  top: -10px;
+  left: -0.5px;
+}
+
+:is(.heading-with-button:hover, .heading-with-button:focus-within) .button {
+  background-color: transparent;
+  transition: background-color ease-out 100ms;
+}
+
+:is(.heading-with-button:hover, .heading-with-button:focus-within)
+  .button::after {
+  transform: translateY(-10px) rotateZ(45deg);
+  transition: transform ease 150ms;
+}
+
+:is(.heading-with-button:hover, .heading-with-button:focus-within)
+  .button::before {
+  transform: translateY(10px) rotateZ(-45deg);
+  transition: transform ease 150ms;
+}
+
+:is(header:hover, header:focus-within) .nav {
+  display: block;
+}
+
+.nav {
+  display: none;
+  transform-origin: top left;
+  animation: showMenu 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+/* :is(header:hover, header:focus-within) .nav {
+  display: block;
+} */
+
+@keyframes showMenu {
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
